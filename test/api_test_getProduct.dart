@@ -317,4 +317,20 @@ void main() {
         result.product.ingredients.length.toString());
     assert(result.product.ingredientsText != null);
   });
+
+  test('product ingredients with percent', () async {
+    String barcode = "4388860154948";
+    ProductResult result = await OpenFoodAPIClient.getProduct(
+        barcode, User.LANGUAGE_DE);
+
+    assert(result != null);
+    assert(result.product != null);
+    print("number of ingredients: " +
+        result.product.ingredients.length.toString());
+    assert(result.product.ingredientsText != null);
+    assert(result.product.ingredients != null);
+    assert(result.product.ingredients.length > 0);
+    result.product.ingredients.forEach((Ingredient i) => print(i.toJson()));
+    assert(result.product.ingredients.any((Ingredient i) => i.percent != null));
+  });
 }
