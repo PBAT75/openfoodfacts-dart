@@ -296,41 +296,41 @@ void main() {
       expect(result.product.nutriments.proteins, 6.3);
       expect(result.product.nutriments.novaGroup, 4);
     });
-  });
 
-  test('product not available', () async {
-    String barcode = "11111111111111111111111111";
-    ProductResult result =
-        await OpenFoodAPIClient.getProduct(barcode, User.LANGUAGE_DE);
-    assert(result != null);
-    assert(result.product == null);
-  });
+    test('product not available', () async {
+      String barcode = "11111111111111111111111111";
+      ProductResult result =
+      await OpenFoodAPIClient.getProduct(barcode, User.LANGUAGE_DE);
+      assert(result != null);
+      assert(result.product == null);
+    });
 
-  test('product ingredients not available', () async {
-    String barcode = "4316268596299";
-    ProductResult result =
-        await OpenFoodAPIClient.getProduct(barcode, User.LANGUAGE_DE);
+    test('product ingredients not available', () async {
+      String barcode = "4316268596299";
+      ProductResult result =
+      await OpenFoodAPIClient.getProduct(barcode, User.LANGUAGE_DE);
 
-    assert(result != null);
-    assert(result.product != null);
-    print("number of ingredients: " +
-        result.product.ingredients.length.toString());
-    assert(result.product.ingredientsText != null);
-  });
+      assert(result != null);
+      assert(result.product != null);
+      print("number of ingredients: " +
+          result.product.ingredients.length.toString());
+      assert(result.product.ingredientsText != null);
+    });
 
-  test('product ingredients with percent', () async {
-    String barcode = "4388860154948";
-    ProductResult result = await OpenFoodAPIClient.getProduct(
-        barcode, User.LANGUAGE_DE);
+    test('product ingredients with percent', () async {
+      String barcode = "4388860154948";
+      ProductResult result = await OpenFoodAPIClient.getProduct(
+          barcode, User.LANGUAGE_DE);
 
-    assert(result != null);
-    assert(result.product != null);
-    print("number of ingredients: " +
-        result.product.ingredients.length.toString());
-    assert(result.product.ingredientsText != null);
-    assert(result.product.ingredients != null);
-    assert(result.product.ingredients.length > 0);
-    result.product.ingredients.forEach((Ingredient i) => print(i.toJson()));
-    assert(result.product.ingredients.any((Ingredient i) => i.percent != null));
+      assert(result != null);
+      assert(result.product != null);
+      print("number of ingredients: " +
+          result.product.ingredients.length.toString());
+      assert(result.product.ingredientsText != null);
+      assert(result.product.ingredients != null);
+      assert(result.product.ingredients.length > 0);
+      result.product.ingredients.forEach((Ingredient i) => print(i.toJson()));
+      assert(result.product.ingredients.any((Ingredient i) => i.percent != null));
+    });
   });
 }

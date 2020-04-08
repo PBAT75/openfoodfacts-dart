@@ -132,10 +132,6 @@ void main() {
       expect(result.products.length, 10);
       expect(result.products[0].runtimeType, Product);
       expect(result.count > 30000, true);
-      // This test may fail if the order of products returned by the API changes
-      expect(result.products[9].brands.contains("Minute Maid"), true);
-
-      print(result.products[9].toData().toString());
     });
 
     test('search products filter additives', () async {

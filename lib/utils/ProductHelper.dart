@@ -66,8 +66,7 @@ class ProductHelper {
         break;
     }
 
-    // override the current list of ingredients
-    product.ingredients = new List<Ingredient>();
+    List<Ingredient> ingredientsFromText = new List<Ingredient>();
     product.ingredientsTextDE = null;
     product.ingredientsTextEN = null;
     product.ingredientsTextFR = null;
@@ -81,7 +80,9 @@ class ProductHelper {
               r"(([\s-_])*([a-zA-ZäöüÄÖÜßàâæçèéêëîïôœùûüÿÀÂÆÇÈÉÊËÎÏÔŒÙÛÜŸ])+([\s0-9%])*)+([\w])*")
           .allMatches(product.ingredientsText);
 
+      int rank = 0;
       for (var m in matches) {
+
         String name = m.group(0).trim();
 
         // avoid empty ingredients
@@ -96,11 +97,19 @@ class ProductHelper {
           }
 
           // avoid duplicates
-          if (!product.ingredients.any((i) => i.text == name)) {
-            product.ingredients.add(new Ingredient(text: name, bold: bold));
+          if (!ingredientsFromText.any((i) => i.text == name)) {
+            double percent = product.ingredients.length > rank ?
+                product.ingredients[rank].percent : null;
+            rank++;
+            ingredientsFromText.add(new Ingredient(
+                rank: rank, text: name, bold: bold, percent: percent));
           }
         }
       }
+
+      // override the current list of ingredients
+      // ingredients_text is filled with the right language!
+      product.ingredients = ingredientsFromText;
     }
   }
 }

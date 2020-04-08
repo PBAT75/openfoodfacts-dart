@@ -20,10 +20,7 @@ abstract class JsonObject {
 
   static double parseDouble(dynamic json) {
     if (json is String) {
-      print("String : " + json);
-      double r = double.tryParse(json);
-      print("double : " + r.toString());
-      return r;
+      return double.tryParse(json);
     } else if (json is int) {
       return json.toDouble();
     } else {
